@@ -1,6 +1,9 @@
 
 // Import the cds facade object (https://cap.cloud.sap/docs/node.js/cds-facade)
 const cds = require('@sap/cds')
+const WebSocket = require("ws");
+
+const oSocket = new WebSocket(`ws://localhost:4004/socket`);
 
 // The service implementation with all service handlers
 module.exports = cds.service.impl(async function() {

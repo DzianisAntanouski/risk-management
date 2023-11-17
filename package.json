@@ -9,7 +9,9 @@
     "@sap-cloud-sdk/http-client": "^2.15.0",
     "@sap-cloud-sdk/resilience": "^3.7.0",
     "@sap/cds": "^7",
-    "express": "^4"
+    "express": "^4",
+    "express-ws": "^5.0.2",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>risk-management 3.0.0</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            transform: scale(1);
+            transition: transform 1s;
+            min-width: 650px;
+        }
+
+        .card:hover {
+            transform: scale(1.1);
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .card-container {
+            background-color: #a4c9e2; /* Beautiful blue background color for the card */
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .card-container:hover {
+            transform: scale(1.05);
+        }
+
+        .link-button {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #95a5a6; /* Gray button color */
+            color: #ffffff; /* White text color */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+            margin-right: 6px;
+            color: #000000;
+        }
+
+        .link-button:hover {
+            background-color: #000000; /* Black background color on hover */
+            color: white;
+        }
+
+        .preview-link {
+            color: rgb(42, 136, 199); /* White text color for the preview link */
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .preview-link:hover {
+            color: #1d1d83; /* Black text color on hover for the preview link */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>Welcome to <i>@sap/cds</i> Server</h1>
+        <p class="subtitle">Serving risk-management 3.0.0</p>
+    </div>
+
+    <div class="card">
+        <h2>Web Applications:</h2>
+        <div class="link-card"><a href="risk-management/webapp/index.html">/risk-management/webapp/index.html</a></div>
+        <div class="link-card"><a href="sample/webapp/index.html">/sample/webapp/index.html</a></div>
+    </div>
+
+    <div class="card">
+        <h2>Service Endpoints:</h2>
+
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/custom-srv">/odata/v4/custom-srv</a>
+            <a class="link-button" href="/odata/v4/custom-srv/$metadata">$metadata</a>
+            <a class="link-button" href="/odata/v4/custom-srv/customSrv">customSrv</a>
+            <a class="link-button preview-link" href="/$fiori-preview/customSrv/customSrv#preview-app" title="Preview in Fiori elements">
+                &rarr; Fiori preview
+            </a>
+        </div>
+
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/handler-folder">/odata/v4/handler-folder</a>
+            <a class="link-button" href="/odata/v4/handler-folder/$metadata">$metadata</a>
+            <a class="link-button" href="/odata/v4/handler-folder/HandlerFolder">HandlerFolder</a>
+            <a class="link-button preview-link" href="/$fiori-preview/HandlerFolder/HandlerFolder#preview-app"
+                title="Preview in Fiori elements"> &rarr; Fiori preview</a>
+        </div>
+    
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/lib-folder">/odata/v4/lib-folder</a>
+            <a class="link-button" href="/odata/v4/lib-folder/$metadata">$metadata</a>
+            <a class="link-button" href="/odata/v4/lib-folder/LibFolder">LibFolder</a>
+            <a class="link-button preview-link" href="/$fiori-preview/LibFolder/LibFolder#preview-app"
+                title="Preview in Fiori elements"> &rarr; Fiori preview</a>
+        </div>
+    
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/service/risk">/odata/v4/service/risk</a>
+            <a class="link-button" href="/odata/v4/service/risk/$metadata">$metadata</a>
+            <a class="link-button" href="/odata/v4/service/risk/Risks">Risks</a>
+            <a class="link-button preview-link" href="/$fiori-preview/RiskService/Risks#preview-app"
+                title="Preview in Fiori elements"> &rarr; Fiori preview</a>
+        </div>
+    
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/service/risk/Mitigations">Mitigations</a>
+            <a class="link-button preview-link" href="/$fiori-preview/RiskService/Mitigations#preview-app"
+                title="Preview in Fiori elements"> &rarr; Fiori preview</a>
+        </div>
+    
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/service/risk/BusinessPartners">BusinessPartners</a>
+            <a class="link-button preview-link" href="/$fiori-preview/RiskService/BusinessPartners#preview-app"
+                title="Preview in Fiori elements"> &rarr; Fiori preview</a>
+        </div>
+    
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/service/risk/Airlines">Airlines</a>
+            <a class="link-button preview-link" href="/$fiori-preview/RiskService/Airlines#preview-app"
+                title="Preview in Fiori elements"> &rarr; Fiori preview</a>
+        </div>
+    
+        <div class="card-container">
+            <a class="link-button" href="/odata/v4/service/risk/Priority">Priority</a>
+            <a class="link-button preview-link" href="/$fiori-preview/RiskService/Priority#preview-app"
+                title="Preview in Fiori elements"> &rarr; Fiori preview</a>
+        </div>
+    </div>
+
+    <script
+        src="https://port35729-workspaces-ws-vn2v6.us10.trial.applicationstudio.cloud.sap/livereload.js?snipver=1&port=443"
+        async="" defer=""></script>
+</body>
+
+</html>

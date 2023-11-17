@@ -1,7 +1,40 @@
-<mvc:View controllerName="sample.controller.Report"
+<mvc:View xmlns:f="sap.f" controllerName="sample.controller.Report"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:smartList="sap.ui.comp.smartlist"
+    xmlns:card="sap.f.cards"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
-        <content />
+        <content>
+            <smartList:SmartList id="Risks" entitySet="Risks" header="Risks"
+				showRowCount="true" showFullScreenButton="true" enableAutoBinding="true"
+				selectFields="title,owner,descr">
+				<smartList:listItemTemplate>
+					<StandardListItem title="{title}" info="{owner}"
+						description="{descr}" />
+				</smartList:listItemTemplate>
+			</smartList:SmartList>
+        </content>
+        <content>
+            <smartList:SmartList id="Airlines" entitySet="Airlines" header="Airlines"
+				showRowCount="true" showFullScreenButton="true" enableAutoBinding="true"
+				selectFields="AirlineCode,Name">
+				<smartList:listItemTemplate>
+					<StandardListItem title="{AirlineCode}" 
+						description="{Name}" />
+				</smartList:listItemTemplate>
+			</smartList:SmartList>
+        </content>
+        <content>
+        <f:Card id="_IDGenCard1" width="450px">
+            <f:content>
+            <HBox direction="Column" justifyContent="Center" renderType="Bare" width="400px" alignItems="Center">
+                <Label text="Input for WebSocet Demo"></Label>
+                <Input id="input" width="80%" value="Hello" liveChange="onInputChange" />
+                </HBox>
+            </f:content>
+            
+        </f:Card>
+            
+        </content>
     </Page>
 </mvc:View>

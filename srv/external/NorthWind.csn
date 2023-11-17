@@ -1,0 +1,671 @@
+{
+ "meta": {
+  "creator": "cds-dk 7.3.2"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "NorthWind.GetPersonWithMostFriends": {
+   "kind": "function",
+   "@cds.external": true,
+   "returns": {
+    "type": "NorthWind.People"
+   }
+  },
+  "NorthWind.GetNearestAirport": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "lat": {
+     "type": "cds.Double",
+     "notNull": true
+    },
+    "lon": {
+     "type": "cds.Double",
+     "notNull": true
+    }
+   },
+   "returns": {
+    "type": "NorthWind.Airports"
+   }
+  },
+  "NorthWind.ResetDataSource": {
+   "kind": "action",
+   "@cds.external": true
+  },
+  "NorthWind.Trip": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "TripId": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "ShareId": {
+     "type": "cds.UUID",
+     "notNull": true
+    },
+    "Name": {
+     "type": "cds.LargeString"
+    },
+    "Budget": {
+     "type": "cds.Double",
+     "@odata.Type": "Edm.Single",
+     "notNull": true
+    },
+    "Description": {
+     "type": "cds.LargeString"
+    },
+    "Tags": {
+     "items": {
+      "type": "cds.LargeString"
+     }
+    },
+    "StartsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "notNull": true
+    },
+    "EndsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "notNull": true
+    },
+    "PlanItems": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.PlanItem",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   },
+   "actions": {
+    "GetInvolvedPeople": {
+     "kind": "function",
+     "params": {
+      "trip": {
+       "type": "$self"
+      }
+     },
+     "returns": {
+      "items": {
+       "type": "NorthWind.People"
+      }
+     }
+    }
+   }
+  },
+  "NorthWind.PlanItem": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PlanItemId": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "ConfirmationCode": {
+     "type": "cds.LargeString"
+    },
+    "StartsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "notNull": true
+    },
+    "EndsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "notNull": true
+    },
+    "Duration": {
+     "type": "cds.String",
+     "@odata.Type": "Edm.Duration",
+     "notNull": true
+    }
+   },
+   "@open": true
+  },
+  "NorthWind.Event": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "NorthWind.PlanItem"
+   ],
+   "elements": {
+    "OccursAt": {
+     "type": "NorthWind.EventLocation"
+    },
+    "Description": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "NorthWind.PublicTransportation": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "NorthWind.PlanItem"
+   ],
+   "elements": {
+    "SeatNumber": {
+     "type": "cds.LargeString"
+    }
+   },
+   "@open": true
+  },
+  "NorthWind.Flight": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "NorthWind.PublicTransportation"
+   ],
+   "elements": {
+    "FlightNumber": {
+     "type": "cds.LargeString"
+    },
+    "Airline": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.Airlines",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "From": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.Airports",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "To": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.Airports",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   }
+  },
+  "NorthWind.Employee": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "NorthWind.People"
+   ],
+   "elements": {
+    "Cost": {
+     "type": "cds.Integer64",
+     "notNull": true
+    },
+    "Peers": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.People",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   }
+  },
+  "NorthWind.Manager": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "NorthWind.People"
+   ],
+   "elements": {
+    "Budget": {
+     "type": "cds.Integer64",
+     "notNull": true
+    },
+    "BossOffice": {
+     "type": "NorthWind.Location"
+    },
+    "DirectReports": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.People",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   }
+  },
+  "NorthWind.Location": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "Address": {
+     "type": "cds.LargeString"
+    },
+    "City": {
+     "type": "NorthWind.City"
+    }
+   },
+   "@open": true
+  },
+  "NorthWind.City": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "Name": {
+     "type": "cds.LargeString"
+    },
+    "CountryRegion": {
+     "type": "cds.LargeString"
+    },
+    "Region": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "NorthWind.AirportLocation": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "Loc": {
+     "type": "cds.String",
+     "@odata.Type": "Edm.GeographyPoint"
+    }
+   },
+   "includes": [
+    "NorthWind.Location"
+   ]
+  },
+  "NorthWind.EventLocation": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "BuildingInfo": {
+     "type": "cds.LargeString"
+    }
+   },
+   "includes": [
+    "NorthWind.Location"
+   ]
+  },
+  "NorthWind.PersonGender": {
+   "kind": "type",
+   "@cds.external": true,
+   "enum": {
+    "Male": {
+     "val": 0
+    },
+    "Female": {
+     "val": 1
+    },
+    "Unknown": {
+     "val": 2
+    }
+   },
+   "type": "cds.Integer"
+  },
+  "NorthWind.Feature": {
+   "kind": "type",
+   "@cds.external": true,
+   "enum": {
+    "Feature1": {
+     "val": 0
+    },
+    "Feature2": {
+     "val": 1
+    },
+    "Feature3": {
+     "val": 2
+    },
+    "Feature4": {
+     "val": 3
+    }
+   },
+   "type": "cds.Integer"
+  },
+  "NorthWind": {
+   "kind": "service",
+   "@cds.external": true
+  },
+  "NorthWind.People": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "UserName": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "FirstName": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "LastName": {
+     "type": "cds.String",
+     "length": 26
+    },
+    "MiddleName": {
+     "type": "cds.LargeString"
+    },
+    "Gender": {
+     "type": "NorthWind.PersonGender",
+     "notNull": true
+    },
+    "Age": {
+     "type": "cds.Integer64"
+    },
+    "Emails": {
+     "items": {
+      "type": "cds.LargeString"
+     }
+    },
+    "AddressInfo": {
+     "items": {
+      "type": "NorthWind.Location"
+     }
+    },
+    "HomeAddress": {
+     "type": "NorthWind.Location"
+    },
+    "FavoriteFeature": {
+     "type": "NorthWind.Feature",
+     "notNull": true
+    },
+    "Features": {
+     "items": {
+      "type": "NorthWind.Feature",
+      "notNull": true
+     }
+    },
+    "Friends": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.People",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "BestFriend": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.People",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "Trips": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.Trip",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   },
+   "@open": true,
+   "actions": {
+    "UpdateLastName": {
+     "kind": "action",
+     "params": {
+      "person": {
+       "type": "$self"
+      },
+      "lastName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "type": "cds.Boolean",
+      "notNull": true
+     }
+    },
+    "ShareTrip": {
+     "kind": "action",
+     "params": {
+      "personInstance": {
+       "type": "$self"
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      },
+      "tripId": {
+       "type": "cds.Integer",
+       "notNull": true
+      }
+     }
+    },
+    "GetFavoriteAirline": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self"
+      }
+     },
+     "returns": {
+      "type": "NorthWind.Airlines"
+     }
+    },
+    "GetFriendsTrips": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self"
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "items": {
+       "type": "NorthWind.Trip"
+      }
+     }
+    }
+   }
+  },
+  "NorthWind.Airlines": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "AirlineCode": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Name": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "NorthWind.Airports": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "Name": {
+     "type": "cds.LargeString"
+    },
+    "IcaoCode": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "IataCode": {
+     "type": "cds.LargeString"
+    },
+    "Location": {
+     "type": "NorthWind.AirportLocation"
+    }
+   }
+  },
+  "NorthWind.Me": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "UserName": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "FirstName": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "LastName": {
+     "type": "cds.String",
+     "length": 26
+    },
+    "MiddleName": {
+     "type": "cds.LargeString"
+    },
+    "Gender": {
+     "type": "NorthWind.PersonGender",
+     "notNull": true
+    },
+    "Age": {
+     "type": "cds.Integer64"
+    },
+    "Emails": {
+     "items": {
+      "type": "cds.LargeString"
+     }
+    },
+    "AddressInfo": {
+     "items": {
+      "type": "NorthWind.Location"
+     }
+    },
+    "HomeAddress": {
+     "type": "NorthWind.Location"
+    },
+    "FavoriteFeature": {
+     "type": "NorthWind.Feature",
+     "notNull": true
+    },
+    "Features": {
+     "items": {
+      "type": "NorthWind.Feature",
+      "notNull": true
+     }
+    },
+    "Friends": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.People",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "BestFriend": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.People",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "Trips": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "NorthWind.Trip",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   },
+   "@open": true,
+   "actions": {
+    "UpdateLastName": {
+     "kind": "action",
+     "params": {
+      "person": {
+       "type": "$self"
+      },
+      "lastName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "type": "cds.Boolean",
+      "notNull": true
+     }
+    },
+    "ShareTrip": {
+     "kind": "action",
+     "params": {
+      "personInstance": {
+       "type": "$self"
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      },
+      "tripId": {
+       "type": "cds.Integer",
+       "notNull": true
+      }
+     }
+    },
+    "GetFavoriteAirline": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self"
+      }
+     },
+     "returns": {
+      "type": "NorthWind.Airlines"
+     }
+    },
+    "GetFriendsTrips": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self"
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "items": {
+       "type": "NorthWind.Trip"
+      }
+     }
+    }
+   },
+   "@odata.singleton": true
+  }
+ }
+}

@@ -39,9 +39,25 @@ entity Priority : CodeList {
 
 // using an external service from SAP S/4HANA Cloud
 using { API_BUSINESS_PARTNER as external } from '../srv/external/API_BUSINESS_PARTNER.csn';
-
+using {NorthWind as external_N} from '../srv/external/NorthWind.csn';
 
 entity BusinessPartners as projection on external.A_BusinessPartner {
    key BusinessPartner,
    BusinessPartnerFullName as FullName,
+}
+
+entity NorthWind as projection on external_N.Airlines {
+   key AirlineCode, Name
+}
+
+entity LibFolder : cuid {
+        name: String;
+}
+
+entity HandlerFolder : cuid {
+        name: String;
+}
+
+entity customSrv : cuid {
+        name: String;
 }

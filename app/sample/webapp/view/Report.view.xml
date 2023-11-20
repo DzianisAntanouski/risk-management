@@ -28,7 +28,7 @@
         <f:Card id="_IDGenCard1" width="450px">
             <f:content>
             <HBox direction="Column" justifyContent="Center" renderType="Bare" width="400px" alignItems="Center">
-                <Label text="Input for WebSocet Demo"></Label>
+                <Label text="Input for WebSocket Demo"></Label>
                 <Input id="input" width="80%" value="Hello" liveChange="onInputChange" />
                 </HBox>
             </f:content>

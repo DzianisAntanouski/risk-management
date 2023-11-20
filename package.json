@@ -39,6 +39,9 @@
           "url": "https://services.odata.org/TripPinRESTierService/(S(zwi0wjvfrd3xmzywxfeb115k))/"
         }
       }
+    },
+    "custom": {
+      "addPlusAirlineCode": false
     }
   },
   "sapux": [
